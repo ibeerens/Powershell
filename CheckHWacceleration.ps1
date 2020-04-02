@@ -1,8 +1,29 @@
 <#
-    Modification History:
+Modification History:
         Ivo Beerens, April 1, 2020: Created
+
+.SYNOPSIS
+    Check the GPU hardware acceleration registry keys
+.DESCRIPTION
+    Check the GPU hardware acceleration registry keys for the following applications:"
+        - Office 2016/365
+        - Google Chrome
+        - Mozilla Firefox
+        - Internet Explorer 11
+        - Microsoft Edge based on Chromium
+.EXAMPLE
+    PS C:\> .\CheckHWacceleration.ps1
+.INPUTS
+    
+.OUTPUTS
+    
+.NOTES
+    Change the log variable 
+    Author: Ivo Beerens
+    Blog:   https://www.ivobeerens.nl
 #>
 
+# Variables
 $log = 'C:\PowerShell\CheckHWacceleration.txt'
 function reg-exist {
     [CmdletBinding()]
@@ -10,11 +31,7 @@ function reg-exist {
         [string]$regkey,
         [string]$regname
     )
-    
-    begin {
         
-    }
-    
     process {
         try {
             Get-ItemPropertyValue -Path $regkey -Name $regname -ErrorAction:SilentlyContinue
@@ -22,10 +39,7 @@ function reg-exist {
             Write-Host "The following regkey: $regkey\$regname is not found" -ForegroundColor Red
         }
     }
-    
-    end {
-        
-    }
+
 }
 
 function reg-check {
