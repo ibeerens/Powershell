@@ -16,12 +16,12 @@ $ProgressPreference = 'SilentlyContinue'
 $temp_folder = "c:\install\" #Temp download location 
 $hashicorp_destination = "c:\install\hashicorp\" #Path for storing the Hashicorp binaries
 
-#Check if the temp folder exist
+#Check if the temp folder exists
 If(!(test-path -PathType container $hashicorp_destination )) {
     New-Item -ItemType Directory -Path $hashicorp_destination 
 }
 
-#Jump to download folder
+#Jump to the download folder
 Set-Location $hashicorp_destination 
 
 Function Download-Hashicorp {
@@ -49,7 +49,7 @@ Function Download-Hashicorp {
      } 
   }
 
-#Download Packer, Vault and Terraform 
+#Download Packer, Vault, and Terraform 
 $products = @{
     'packer' = 'https://developer.hashicorp.com/packer/downloads'
     'vault' = 'https://developer.hashicorp.com/vault/downloads'
@@ -60,7 +60,7 @@ foreach ($product in $products.GetEnumerator()) {
     Download-Hashicorp -product $product.Name -url $product.Value
 }
 
-#Add Hashicorp binary folder to system path
+##Add the Hashicorp binary folder to the system environment variable path
 Write-Host "............ Add folder to path ............" -ForegroundColor Green
 [Environment]::SetEnvironmentVariable("PATH", $Env:PATH + ";" + $hashicorp_destination, [EnvironmentVariableTarget]::User)
 Write-Host "Please restart your PowerShell session for the changes to take effect." -ForegroundColor Yellow
