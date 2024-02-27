@@ -13,8 +13,8 @@
 $ProgressPreference = 'SilentlyContinue'
 
 #Variables
-$temp_folder = "c:\install\" #Temp download location 
-$hashicorp_destination = "c:\install\hashicorp\" #Path for storing the Hashicorp binaries
+$temp_folder = "c:\progs\" #Temp download location 
+$hashicorp_destination = "c:\progs\hashicorp\" #Path for storing the Hashicorp binaries
 
 #Check if the temp folder exists
 If(!(test-path -PathType container $hashicorp_destination )) {
@@ -31,7 +31,7 @@ Function Download-Hashicorp {
      )
      try {
         Write-Host "............ Download $product from Hashicorp ............" -ForegroundColor Green
-        $urls = Invoke-WebRequest -Uri $url| Select-Object -Expand links | Where-Object href -match "//releases\.hashicorp\.com/$product/\d.*/$product_.*_windows_amd64\.zip$" | Select-Object -Expand href
+        $urls = Invoke-WebRequest -Uri $url | Select-Object -Expand links | Where-Object href -match "//releases\.hashicorp\.com/$product/\d.*/$product_.*_windows_amd64\.zip$" | Select-Object -Expand href
         $filename = $urls | Split-Path -Leaf
         $download = $temp_folder + $filename
         #Download Hashicorp bits
@@ -51,9 +51,9 @@ Function Download-Hashicorp {
 
 #Download Packer, Vault, and Terraform 
 $products = @{
-    'packer' = 'https://developer.hashicorp.com/packer/downloads'
-    'vault' = 'https://developer.hashicorp.com/vault/downloads'
-    'terraform' = 'https://developer.hashicorp.com/terraform/downloads'
+    'packer' = 'https://developer.hashicorp.com/packer/install'
+    'vault' = 'https://developer.hashicorp.com/vault/install'
+    'terraform' = 'https://developer.hashicorp.com/terraform/install'
 }
 
 foreach ($product in $products.GetEnumerator()) {
